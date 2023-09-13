@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            //FirstAdmin::class,
+            FirstAdmin::class,
             UserFactorySeeder::class,
         ]);
     }
