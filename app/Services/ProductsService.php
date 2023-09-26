@@ -20,7 +20,7 @@ class ProductsService{
     public function createProduct($data){
         $product=Product::create($data);
         $product->details()->create($data);
-        //Event::dispatch(new newProductMail($product));
+        Event::dispatch(new newProductMail($product));
         return $product;
     }
 

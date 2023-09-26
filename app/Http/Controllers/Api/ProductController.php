@@ -7,10 +7,14 @@ namespace App\Http\Controllers\Api;
 //use App\Imports\ProductsImport;
 //use Maatwebsite\Excel\Facades\Excel;
 
+use App\Exports\ProductsExport;
+use App\Imports\ProductsImport;
 use App\Requests\Products\CreateProductValidator;
+use App\Requests\Products\ImportProductValidator;
 use App\Requests\Products\UpdateProductValidator;
 use App\Services\ProductsService;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends BaseController
 {
@@ -44,15 +48,15 @@ class ProductController extends BaseController
         $this->productService->deleteProduct($id);
         return $this->sendResponse("deleted Successfully");
     }
-//    public function export(){
-//        return Excel::download(new ProductsExport(), 'export1.xlsx');
-//    }
-//    public function import(ImportProductValidator $importProductValidator){
-//        if(!empty($importProductValidator->getErrors())){
-//            return response()->json($importProductValidator->getErrors(),406);
-//        }
-//        Excel::import(new ProductsImport(), $importProductValidator->request()->file('file')->store('files'));
-//        return $this->sendResponse("Saved");
-//    }
-//
+  public function export(){
+        return Excel::download(new ProductsExport(), 'export1.xlsx');
+    }
+    public function import(ImportProductValidator $importProductValidator){
+        if(!empty($importProductValidator->getErrors())){
+            return response()->json($importProductValidator->getErrors(),406);
+        }
+        Excel::import(new ProductsImport(), $importProductValidator->request()->file('file')->store('files'));
+        return $this->sendResponse("Saved");
+    }
+
 }

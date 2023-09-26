@@ -24,21 +24,21 @@ Route::controller(RegisterController::class)->group(function(){
     Route::post('login', 'login');
 });
 
-Route::resource('/products',ProductController::class)->middleware(['auth:sanctum']);
+Route::resource('/products',ProductController::class)->middleware(['auth:sanctum','adminCheck']);
 
 
+Route::get('/send-email',[EmailController::class,'send'])->middleware('auth:sanctum');
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::get('/export-excel',[ProductController::class,'export']);
 Route::post('/import-excel',[ProductController::class,'import']);
 
 Route::get('/get-api',[ThirdPartyController::class,'index']);
 
 
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-Route::get('/send-email',[EmailController::class,'send'])->middleware('auth:sanctum');
 
 
